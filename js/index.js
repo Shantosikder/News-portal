@@ -40,7 +40,7 @@ const showAllNews = (data,category_name) =>{
     newsContainer.innerHTML= ''
     data.forEach(singleNews=>{
         // console.log(singleNews);
-    const {_id,image_url,title,details,author,total_view} = singleNews
+    const {_id,image_url,title,details,author,total_view,rating} = singleNews
     const card = document.createElement('div');
     card.classList.add("card", "mb-3");
     card.innerHTML = `
@@ -69,11 +69,11 @@ const showAllNews = (data,category_name) =>{
       <p class="m-0 p-0">${total_view ? total_view : "Not Available"}</p>
       </div>
 
-      <div>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
-      <i class="fas fa-star"></i>
+      <div class="d-flex justfy-content-center gap-2">
+
+      ${generateStars(rating.number)}
+      <i class="fas fa-star-half"></i>
+      <p>${rating.number}</p>
       </div>
 
       <div>
@@ -151,5 +151,18 @@ const showTrending=()=>{
 
   showAllNews(fetchData, category_name);
 }
+
+//grnarate rating star
+const generateStars= rating =>{
+      let ratingHTML= '';
+      for (let i = 1; i <= Math.floor(rating); i++){
+          ratingHTML +=`<i class="fas fa-star"></i>`;
+        
+      }
+      if(rating - Math.floor(rating)>0){
+          ratingHTML+=`<i class="fas fa-star-half"></i>`
+      }
+      return ratingHTML
+  }
 
 // fetchCategories();
